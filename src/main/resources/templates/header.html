@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <!-- Add any necessary CSS or meta tags for the header -->
+</head>
+<body>
+<div class="header">
+  <!-- Logo image button -->
+  <a th:href="@{/}">
+    <img th:src="@{/images/logo.jpg}" alt="Logo Image" width="100" height="100">
+  </a>
+  <!-- Store name -->
+  <h1>My Online Store</h1>
+
+  <!-- Cart button -->
+  <a th:href="@{/cart}">
+    <button>Cart</button>
+  </a>
+
+  <!-- Login/logout button -->
+  <div th:if="${#request.isUserInRole('ROLE_USER')}">
+    <form th:action="@{/logout}" method="post">
+      <button type="submit">Logout</button>
+    </form>
+  </div>
+  <div th:unless="${#request.isUserInRole('ROLE_USER')}">
+    <a th:href="@{/login}">
+      <button>Login</button>
+    </a>
+  </div>
+</div>
+</body>
+</html>
