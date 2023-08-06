@@ -10,9 +10,11 @@ public class OrderItem {
     private int id;
 
     @ManyToOne
+    @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
     @ManyToOne
+    @JoinColumn(name = "product_id", nullable = false)
     private Product product;
     @Column(name = "quantity")
     private int quantity;

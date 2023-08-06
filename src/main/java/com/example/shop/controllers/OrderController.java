@@ -6,6 +6,7 @@ import com.example.shop.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,12 +49,12 @@ public class OrderController {
         return "order_confirmation";
     }
 
-//    @GetMapping("/order-history")
-//    public String showOrderHistory(Model model) {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        String username = authentication.getName();
-//        List<Order> orderHistory = orderService.getOrdersByEmail(email);
-//        model.addAttribute("orderHistory", orderHistory);
-//        return "order_history";
-//    }
+    @GetMapping("/order-history")
+    public String showOrderHistory(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        List<Order> orderHistory = orderService.getOrdersByEmail(username);
+        model.addAttribute("orderHistory", orderHistory);
+        return "order_history";
+    }
 }

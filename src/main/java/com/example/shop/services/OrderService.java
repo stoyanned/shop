@@ -3,6 +3,7 @@ package com.example.shop.services;
 import com.example.shop.model.Order;
 import com.example.shop.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,5 +37,7 @@ public class OrderService {
     public List<Order> getOrdersByEmail(String email) {
         return orderRepository.findByEmail(email);
     }
+
+
 
 }

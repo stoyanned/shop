@@ -2,6 +2,7 @@ package com.example.shop.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -12,8 +13,8 @@ public class Order {
     @Column(name = "order_id")
     private int id;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<OrderItem> orderItems;
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderItem> orderItems = new ArrayList<>();
     @Column(name = "email")
     private String email;
     @Column(name = "address")
@@ -23,8 +24,9 @@ public class Order {
     @Column(name = "order_date")
     private String orderDate;
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
 
     public Order() {
     }
