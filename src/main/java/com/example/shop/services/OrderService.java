@@ -5,10 +5,12 @@ import com.example.shop.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.annotation.SessionScope;
 
 import java.util.List;
 
 @Service
+@SessionScope
 public class OrderService {
 
     private final OrderRepository orderRepository;

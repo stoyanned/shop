@@ -6,11 +6,9 @@ import com.example.shop.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -27,7 +25,8 @@ public class OrderController {
         this.cartService = cartService;
     }
 
-//    @PostMapping("/place-order")
+//    @Transactional
+//    @PostMapping("/place-order1")
 //    public String placeOrder(@RequestParam String name, @RequestParam String email, @RequestParam String address){
 //        Order order = cartService.createOrder(name, email, address);
 //        orderService.saveOrder(order);
@@ -52,9 +51,10 @@ public class OrderController {
     @GetMapping("/order-history")
     public String showOrderHistory(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        List<Order> orderHistory = orderService.getOrdersByEmail(username);
+        String email = authentication.getName();
+        List<Order> orderHistory = orderService.getOrdersByEmail(email);
         model.addAttribute("orderHistory", orderHistory);
         return "order_history";
     }
+
 }

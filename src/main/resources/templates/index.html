@@ -16,6 +16,7 @@
     <a th:href="@{/cart}" class="btn btn-primary" style="float: right;">Cart</a>
     <a th:if="${#authentication.principal != null}" th:href="@{/logout}" class="btn btn-danger" style="float: right; margin-right: 10px;">Logout</a>
     <a th:unless="${#authentication.principal != null}" th:href="@{/login}" class="btn btn-success" style="float: right; margin-right: 10px;">Login</a>
+    <span th:if="${#authentication.principal != null}" style="float: right; margin-right: 10px; font-size: 1.5em;">Welcome, [[${#authentication.principal.username}]]!</span>
   </div>
 
   <div style="margin-top: 250px;"> <!-- Add some margin between header and welcome message -->
