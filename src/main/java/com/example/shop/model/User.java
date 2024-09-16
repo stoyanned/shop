@@ -1,59 +1,48 @@
 package com.example.shop.model;
 
 import jakarta.persistence.*;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
 
 @Entity
-@Table(name = "USERS")
+@Table(name = "users") // Ensure the table name is correct in the database
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private int id;
+
     @Column(name = "username", nullable = false, unique = true)
     private String username;
+
     @Column(name = "email", nullable = false, unique = true)
     private String email;
+
     @Column(name = "password", nullable = false)
     private String password;
+
     @Column(name = "first_name", nullable = false)
     private String firstName;
+
     @Column(name = "last_name", nullable = false)
     private String lastName;
-    @Column(name = "role_id")
-    private int roleId;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Order> orders = new ArrayList<>();
-    public User() {
-    }
+    @Column(name = "role_name", nullable = false)
+    private String roleName; // Ensure this is a simple String and properly mapped
 
-    public User(int id, String username, String email, String password, String firstName, String lastName, int roleId) {
-        this.id = id;
+    // Default constructor
+    public User() {}
+
+    // All arguments constructor
+    public User(String username, String email, String password, String firstName, String lastName, String roleName) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.roleId = roleId;
+        this.roleName = roleName;
     }
 
-    public int getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
-    }
-
+    // Getters and Setters
     public int getId() {
         return id;
     }
@@ -65,6 +54,7 @@ public class User {
     public String getUsername() {
         return username;
     }
+
     public void setUsername(String username) {
         this.username = username;
     }
@@ -76,8 +66,6 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-
-
 
     public String getPassword() {
         return password;
@@ -103,31 +91,11 @@ public class User {
         this.lastName = lastName;
     }
 
-    public boolean isEnabled() {
-        return true;
+    public String getRoleName() {
+        return roleName;
     }
 
-
-    public Optional<Object> getRoles() {
-        return Optional.of(roleId);
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
-
-//    @Override
-//    public boolean isAccountNonExpired() {
-//        return false;
-//    }
-//
-//    @Override
-//    public boolean isAccountNonLocked() {
-//        return false;
-//    }
-//
-//    @Override
-//    public boolean isCredentialsNonExpired() {
-//        return false;
-//    }
-//    @Override
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        return null;
-//    }
 }
